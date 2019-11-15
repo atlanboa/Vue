@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 현재 클릭한 버튼의 페이지를 model쪽으로 할당 -->
+        <button v-for="(page) in pages" v-on:click="dpage=page">{{page}}</button>
+        <!-- 현재 돌고있는 페이지가 dpage랑 동일한 페이지만 출력되도록 -->
+        <div v-for="(page) in pages" v-if="page===dpage">
+            <p>{{page}}</p>
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            pages : ['page1', 'page2','page3','page4'],
+            dpage : 'page1'
+        },
+        methods: {
+            show : function(){
+                this.value = page;
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SSAFY</title>
+  <style>
+    #second{
+      margin: 0px auto;
+      padding: 0px;
+      text-align: center;
+      color: blue;
+    }
+    [v-cloak]{display: none;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+
+<body>
+  <div id='second'>
+    <h2>SAFY HRM</h2>
+  </div>
+  <div id="signup_section" v-cloak>
+    <form action="" method="post" @submit.prevent="addEmp">
+      아이디*
+      <input id="_signId" v-model="id" name="id" type="text" placeholder="아이디를 입력하세요" /><br />
+      비밀번호*
+      <input id="_signPw" v-model="pw" name="pw" type="password" placeholder="패스워드를 입력하세요" /><br />
+      <button type="submit" name="button">사원추가</button>
+    </form>
+    <table v-bind:style="{border : '1px solid green', marginTop:'15px', borderCollapse:'collapse'}">
+      <tr>
+        <th>사원번호</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+      </tr>
+      <tbody>
+        <tr v-for="(e,idx) in emp_list">
+          <td v-bind:style="tablestyle" v-html="idx+1"></td>
+          <td v-bind:style="tablestyle" v-html="e.id"></td>
+          <td v-bind:style="tablestyle" v-html="e.pw"></td>
+        </tr>
+      </tbody>
+    </table><br><br>
+    <h2>사원 찾기</h2>
+    <input @keyup.enter="findEmp" type="number">
+    <h3>아이디 : {{emp.id}}</h3>
+    <h3>패스워드 : {{emp.pw}}</h3>
+  </div>
+
+</body>
+<script>
+  let model={
+    tablestyle:{
+      border : '1px solid green',
+      width: '100px'
+    },
+    id:'',
+    pw:'',
+    emp:{id:'',pw:''},
+    emp_list:[],
+    num:0
+  }
+  let signup_section = new Vue({
+    el:"#signup_section",
+    data:model,
+    methods:{
+      addEmp(){
+        if(this.id && this.pw){
+          this.$data.emp_list.push({
+            id:this.id,
+            pw:this.pw
+          });
+          this.id=``;
+          this.pw=``;
+        }else{
+          alert(`아이디 또는 패스워드를 입력하세요`);
+        }
+      },
+      findEmp(e){
+        //e.target.value : 이벤트 객체에 담겨있는 현재의 text값
+        if(this.emp_list[e.target.value-1]){
+          this.emp.id=this.emp_list[e.target.value-1].id;
+          this.emp.pw=this.emp_list[e.target.value-1].pw;
+        }else{
+          alert(`존재하지 않는 사원번호${e.target.value}입니다.`);
+          e.target.value=0;
+        }
+      }
+    }
+  })
+</script>
+</html>

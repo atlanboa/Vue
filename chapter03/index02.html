@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 단방향 데이터 이동 -->
+        <h2 v-for="(price, name, index) in items">{{(index+1)+'번째 물품 :: '+name+' 가격 : '+price}}</h2>
+    </div>
+</body>
+<script>
+    
+    var app = new Vue({
+        el : '#app',
+        data : { 
+            items : {
+                pen : 1000,
+                pencil : 700,
+                eraser : 800
+            }
+        },
+       
+    })
+</script>
+</html>

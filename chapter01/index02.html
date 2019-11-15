@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{title}}</div>
+        <div v-text="title"></div>
+        <div v-html="title"></div>
+        <hr/>
+        <div>{{showVue()}}</div>
+        <div>{{showMyVue('SSAFY!!')}}</div>
+        <button v-on:click="changeMyVue()">{{title}}</button>
+        <button v-on:click="changeMyVue">{{title}}</button>
+        <button @click="changeMyVue()">{{title}}</button>
+    </div>
+</body>
+<script>
+    var model = { title : '<h2>SSAFY VUE</h2>'};
+    var app = new Vue({
+        el : '#app',
+        data : model,
+        methods: {
+            /*
+                자바스크립트에서는 
+                1) var showVue = function(){} //익명함수
+                2) function showVue(){} //선언적 함수
+                뷰에서는 함수이름 : fucntion(){}
+
+            */
+            showVue : function(){
+                return "SSAFY VUE" + new Date();
+            },
+            //이벤트 객체를 받을때는 일반적인 방법과 다르게 앞에 $를 써줘야한다.
+            showMyVue : function (name, $event) {
+                return name +' '+new Date();
+            },
+            changeMyVue : function(){
+                //this.title = 'SSAFY VUE SSAFY VUE';
+                // this.$data.title = 'SSAFY VUE SSAFY VUE';
+                app.title = 'SSAFY VUE SSAFY VUE';
+            }
+        },
+    })
+</script>
+</html>

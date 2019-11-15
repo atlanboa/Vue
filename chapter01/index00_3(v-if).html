@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if | v-show</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 v-if="visible">나는 vue 입니다1</h1>
+        <!-- 아주 복잡하고 오래 걸리는 로직을 처리할때는 이부분의 내용을 보이지 않을뿐더러
+             내용조차 처리하지 않는다.
+        -->
+        <h1 v-show="visible">나는 vue 입니다2</h1>
+        <!-- 결과값이 true, false,건 상관없이 처리는 처리대로 하고, 다만 display값만 none으로 바꾼다. -->
+    </div>
+    <script>
+        var app = new Vue({
+            el : "#app",
+            data : {
+                // visible : true
+                visible : false
+            }
+        })
+    </script>
+</body>
+</html>

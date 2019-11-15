@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3 v-html="num"></h3>
+        <button @click="plus()">+</button>
+        
+    </div>
+</body>
+<script>
+    var model = {
+        title : 'SSAFY',
+        num : 0
+    }
+    var app = new Vue({
+        el: '#app',
+        data: model,
+        methods: {
+            plus : function(){
+                this.num += 1
+                console.log("플러스")
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate title '+this.title)
+        },
+        created() {
+            console.log('Create title '+this.title)
+            console.log(this)
+            console.log('create에 연결된 html DOM< 엘러먼트....'+this.$el)
+        },
+        beforeMount() {
+            console.log('beforeMount 연결된 html DOM< 엘러먼트....'+this.$el)
+        },
+        mounted() {
+            console.log('mounted title '+this.title)
+            console.log('mounted 연결된 html DOM< 엘러먼트....'+this.$el)
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate call '+this.num)
+            
+        },
+        updated() {
+            console.log('updated call '+this.num)
+            this.num += 1;
+        },
+    });
+</script>
+
+</html>

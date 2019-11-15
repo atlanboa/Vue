@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on</title>
+    <style>
+        #tid {
+            border: 1px solid greenyellow;
+            margin: 0px auto;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid greenyellow;
+        }
+    </style>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="add()">증가</button>
+        <hr />
+        <ul>
+            <li v-for="(n) in numbers">{{n}}</li>
+        </ul>
+        <h2>+++++++++++++key up, keydown, keypress+++++++++++++++++++</h2>
+        <input type="text" v-on:keyup.enter="capture()" v-model="fruit"> <!-- 박스안에 과일명을 입력하면 추가되도록 -->
+        <!-- <input type="text" v-on:keyup="capture()" v-model="fruit">박스안에 과일명을 입력하면 추가되도록 -->
+        <ul>
+            <li v-for="(fruit) in fruits" v-if="fruit.length >= 5">
+                
+                {{fruit}}</li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                numbers: [1, 2, 3, 4, 5],
+                fruits: ['Apple', 'Banana', 'Orange', 'Melon', 'Grape'],
+                fruit: ''
+            },
+            methods: {
+                add: function () { //위에서 버튼을 클릭하면 이 부분이 호출됌
+                    var lastNum = this.numbers[this.numbers.length - 1];
+                    // console.log(lastNum);
+                    this.numbers.push(lastNum + 1);
+                },
+                capture: function () {
+                    if (this.fruit) {
+                        this.fruits.push(this.fruit);
+                        this.fruit = '';
+
+                    }
+                    // if (this.fruit && window.event.keyCode == 13) {
+                    //     this.fruits.push(this.fruit);
+                    //     this.fruit = '';
+
+                    // }
+                }
+
+            },
+        })
+    </script>
+
+</body>
+
+</html>

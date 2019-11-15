@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters</title>
+    <style>
+        [v-cloak] {display: none;}
+    </style>
+    <script src="vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        
+        <h2 v-cloak>{{title}}</h2>            
+
+    </div>
+</body>
+<script>
+    // setTimeout(function () {
+    //     var app = new Vue({
+    //         el: '#app',
+    //         data: { title : '안녕~~~!'},
+
+    //     })
+    // }, 2000)
+
+    //ex6 문법
+    setTimeout(() => {
+        var model = {title : '안녕~~~!!'}
+        var app = new Vue({
+            el: '#app',
+            data: model
+
+        })
+    }, 2000);
+</script>
+
+</html>
+<!-- // var app = new Vue({
+    //     el : '#app',
+    //     data : { 
+    //     },
+       
+    // }) -->

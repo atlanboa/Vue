@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./table.css" />
+    <title>SSAFY</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class='headtitle'>
+            <h2>SSAFY HRM LIST</h2>
+        </div>
+        <div class='search_box'>
+            <a @click="" href='#'>사원추가</a> |
+            <a @click="nameSearch" href='#'>이름으로 찾기</a> |
+            <a @click="idSearch" href='#'>아이디로 찾기</a> |
+            <a @click="allView" href='#'>모든사원 보기</a>
+        </div>
+        <div class="search_box" v-if="searchBox">
+            <input v-if="namesearcher" type="text" @keyup.enter="findName" />
+            <div v-if="idsearcher"><h3>{{cname +"님의 정보입니다."}}</h3></div>
+            <select v-if="idsearcher" @change="findId">
+                <option v-for="item in info" :value="item.id">{{item.name}}</option>
+            </select>
+        </div>
+
+        <section v-if="errored">
+            <p>Error In Ajax Transport</p>
+        </section>
+        <section v-else>
+            <div v-if="loading">Loading....</div>
+            <table class='list_table'>
+                <col width="10%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="10%">
+                <thead>
+                    <th>사원 아이디</th>
+                    <th>사원명</th>
+                    <th>부서</th>
+                    <th>직책</th>
+                    <th>연봉</th>
+                    </tr>
+                </thead>
+                <div v-else>
+                    <tbody>
+                        <tr v-for="emp in emps">
+                            <td v-html="emp.id"></td>
+                            <td v-html="emp.name"></td>
+                            <td v-html="emp.dept_id"></td>
+                            <td v-html="emp.title"></td>
+                            <td>{{emp.salary | salary}}</td>
+                        </tr>
+                    </tbody>
+
+
+                </div>
+            </table>
+        </section>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                cname:'',
+                searchBox:false,
+                namesearcher: false,
+                idsearcher: false,
+                emps: null,
+                html: null,
+                info: null,
+                loading: true,
+                errored: false
+            }
+        },
+        mounted() {
+            axios
+                .get('http://localhost:9999/api/findAllEmployees')
+                .then(response => {
+                    this.info = response.data;
+                    this.emps = response.data;
+                    this.cname = this.emps[0].name;
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.error = true;
+                })
+                .finally(() => this.loading = false)
+        },
+        methods: {
+            nameSearch() {
+                this.searchBox = true;
+                this.idsearcher = false;
+                this.namesearcher = true;
+            },
+            idSearch() {
+                this.searchBox = true;
+                this.idsearcher = true;
+                this.namesearcher = false;
+            },
+            allView() {
+                this.searchBox = false;
+                this.emps = this.info;
+            },
+            findName(e) {
+                axios
+                    .get(`http://localhost:9999/api/findLikeEmployees/${e.target.value}`)
+                    .then(response => {
+                        this.emps = null;
+                        this.emps = response.data;
+                        
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.error = true;
+                    })
+                    .finally(() => this.loading = false)
+            },
+            findId(e) {
+                axios
+                    .get(`http://localhost:9999/api/findEmployeeById/${e.target.value}`)
+                    .then(response => {
+                        this.emps = [];
+                        this.emps.push(response.data);
+                        
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.error = true;
+                    })
+                    .finally(() => this.loading = false)
+            }
+        },
+        filters: {
+            salary(value) {
+                if(value)
+                    return value.toFixed(2);
+            }
+        }
+    })
+</script>
+
+</html>

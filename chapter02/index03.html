@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-html="title"></div>
+        <div v-on:click="hello('안녕하세요')">자바스크립트 : 이벤트 클릭</div>
+        <input type="text" v-on:click="hello2()" v-model="greet">
+    </div>
+</body>
+<script>
+    var model = {
+        title: '<h2>SSAFY</h2>',
+        greet : ''
+    };
+    var app = new Vue({
+        el: '#app',
+        data: model,
+        methods: {
+            hello: function (hello) {
+                alert(hello);
+            },
+            hello2: function () {
+                alert(this.greet);
+                this.greet = ''
+            },
+        },
+    });
+</script>
+
+</html>

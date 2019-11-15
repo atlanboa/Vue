@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters, computed</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-html="title"></div>
+        <div><h3>{{ title | toH3 }}</h3></div>
+        <div><h3>{{ title | toUpper }}</h3></div>
+        <div><h3>{{ title | toLower }}</h3></div>
+        <hr/>
+        <div v-if="hasResult"><h3>{{ title | toH3 }}</h3></div>
+        <div v-show="hasResult"><h3>{{ title | toH3 }}</h3></div>
+    </div>
+</body>
+<script>
+    var model = {title: 'SSAFY'};
+    var app = new Vue({
+        el : '#app',
+        data : model,
+        filters : {
+            toH3(value){
+                var s = '';
+                for(i=0; i<3; i++){
+                    s += value;
+                }
+                return s;
+            },
+            toUpper(value){
+                return value.toUpperCase();
+            },
+            toLower(value){
+                return value.toLowerCase();
+            }
+        },
+        computed: {
+            hasResult : function(){
+                return this.title.length > 10;
+            }
+        },
+    })
+</script>
+</html>

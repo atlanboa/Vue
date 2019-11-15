@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Document</title>
+    <script src="vue.js"></script>
+    
+    <script>
+        let name = "world"
+        const a = "ssafy"
+        const b = 2
+        //grave accent 표현법... : ` `
+        // ` ` 로 감싸주고 이 안에 변수 ${} 안에 넣어준다.
+        console.log('Hello '+name)
+        console.log(`Hello ${name}`)
+        console.log(`Hello ${a} is 2's olds`)
+    </script>
+    <!-- 1. 여러줄을 한줄로 가능, 복합 연산자 제거 가능 -->
+    <!-- 사용전 -->
+    <script>
+        Vue.component({
+            template:'<div>'+
+                    '<h1></h1>' + 
+                    '<p></p>' + 
+                    '</div>'
+        })
+    </script>
+
+    <!-- 사용후 -->
+    <script>
+            Vue.component({
+                template: `<div><h1></h1><p></p></div>`
+            })
+        </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <style>
+        #tid{border: 1px solid greenyellow;
+             margin: 0px auto;
+             border-collapse: collapse;
+        }
+        td,th{border: 1px solid greenyellow;}
+    </style>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="n in numbers">
+                {{ n }}
+            </li>
+        </ul>
+        <hr>
+        <table id="tid">
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>나이</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="person in people">
+                    <td>{{ person.name }}</td>
+                    <td> {{ person.age }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                numbers: [1, 2, 3, 4, 5, 6, 7],
+                people: [{
+                        name: '아이유',
+                        age: 27
+                    },
+                    {
+                        name: '전현무',
+                        age: 37
+                    },
+                    {
+                        name: '허재',
+                        age: 57
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
