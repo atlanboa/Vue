@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<template id="listTemplate">
+    <div>
+        <!-- props는 객체형태의 속성을 가질수 있다 -->
+        <li>{{message}}, {{count}}</li>
+    </div>
+</template>
+<script>
+    Vue.component('listcomponent', {
+        template : '#listTemplate',
+        props : { 
+            message : {
+                type : String,
+                default : '안녕하세요'
+            },
+            count : {
+                type : Number,
+                requried : true
+            }
+        }
+    
+    })
+</script>
+<body>
+    <div id="app">
+        <!-- 전체 화면 .. 부모 컴포넌트 .. root에서 값을 자식 컴포넌트로 전달
+             이때 props를 사용한다.
+        -->
+        <!-- 숫자를 넣을때 그냥 넣으면 String값이 들어간다 따라서
+        v-bind:를 사용하여 값을 넣게 되면 올바른 형태의 값으로 넣을수 있게 된다. -->
+        <listcomponent v-bind:count="100"></listcomponent>
+        
+        <listcomponent message="Hello" count="200"></listcomponent>
+        <listcomponent message="Nihaoma"></listcomponent>
+
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el : '#app'
+    })
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Component 사용법</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+</head>
+<body>
+
+    <!-- template 태그 안에서 루트요소는 하나이어야 한다.
+        내부의 여러 요소를 작성해야 한다면 div 요소등을 이용해서 감싸주어야 합니다.
+    -->
+    <template id="helloTemplate">
+        <div>
+                <div>Hello World!</div>
+                <span><h2>Hello Vue World</h2></span>
+        </div>
+        
+    </template>
+
+    <div id="app">
+            <hello-component></hello-component>
+            <hello-component></hello-component>
+            <hello-component></hello-component>
+    </div>
+
+    <script>
+        //컴포넌트에서 사용할 태그 이름
+        // 케밥 표기법을 권장한다.
+        // 카멜케이스 표기법을 사용하면 인식을 하지 못한다.
+        Vue.component('hello-component',{
+            template : '#helloTemplate',
+            data(){
+                
+            }
+        })
+    </script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data : {
+
+            }
+        })
+    </script>
+</body>
+</html>

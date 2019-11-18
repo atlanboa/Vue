@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        #list{width: 400px; border: 1px solid greenyellow; border-collapse: collapse; }
+        #list td, #list th{border: 1px solid black; text-align: center;}
+        #list >thead>tr{color: yellow; background-color: purple;}
+    </style>
+</head>
+<template id="listTemplate">
+    <div>
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>메일</th>
+                    <th>직책</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="emp in emps" >
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.mailid}}</td>
+                    <td>{{emp.title}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+<script>
+    Vue.component('listcomponent', {
+        template: '#listTemplate',
+        data() {
+                    return {
+                        emps : null
+                    }
+                },
+                mounted() {
+                    axios
+                        .get('http://localhost:9999/api/findAllEmployees')
+                        .then(response => (this.emps = response.data))
+                        .catch(error => {
+                            console.log(error)
+                            this.errored = true
+                        })
+                        .finally(() => this.loading = false)
+
+                }
+    })
+</script>
+
+<body>
+    <div id="app">
+        <listcomponent></listcomponent>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        emps : null
+                    }
+                },
+                mounted() {
+                    axios
+                        .get('http://localhost:9999/api/findAllEmployees')
+                        .then(response => (this.emps = response.data))
+                        .catch(error => {
+                            console.log(error)
+                            this.errored = true
+                        })
+                        .finally(() => this.loading = false)
+
+                }
+    })
+</script>
+
+</html>

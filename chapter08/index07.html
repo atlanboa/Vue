@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<template id="childTemplate">
+    <div>
+        <!-- 컴포넌트에 이벤트를 바인딩 -->
+        <button @click="incrementCounter">{{counter}}</button>
+    </div>
+</template>
+<script>
+    Vue.component('buttoncounter',{
+        template : '#childTemplate',
+        data(){
+            return{
+                counter : 0
+            }
+        },
+        methods: {
+            incrementCounter(){
+                this.counter++               
+            //  자식 컴포넌트는 이벤트를 발산 --> 부모쪽으로
+                this.$emit('increment') 
+            }
+        },
+    })
+</script>
+<body>
+    <div id="app">
+        <p>{{total}}</p>
+        <!-- 부모는 자식이 보낸 이벤트(increment)를 감지... v-on:increment-->
+
+        <buttoncounter v-on:increment="incrementTotal"></buttoncounter>
+        <buttoncounter v-on:increment="incrementTotal"></buttoncounter>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el : '#app',
+        data :{
+            total : 0
+        },
+        methods: {
+            incrementTotal(){
+                this.total += 1
+            }
+        },
+    })
+</script>
+</html>
