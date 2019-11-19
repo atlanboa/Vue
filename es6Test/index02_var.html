@@ -1,0 +1,55 @@
+<!-- 
+
+    변수 사용법 ::
+    const, let은 es6(ECMAScript6) 혹은 ES2015 에서 나온 문법이고
+    var는 그 이전의 문법(es5)
+    var는 전역변수.. 하지만 scope에 있어서 다소 애매한 부분이 있다.
+    1) 동일한 변수지정 사용가능한 점
+    2) scope가 블락 단위가 아닌 function 단위
+    3) 1) 2)들로 인해서 값이 예상치 못하게 바뀌는 점
+    ::
+    이런 점들로 인해서 let 키워드가 보안하기 위해서 나왔음
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Var</title>
+    
+</head>
+<!-- hello in function, hello가 차례대로 출력됨 -->
+<script>
+    var greet = "hello"
+    function sayGreet(){
+        var greet = 'hello in function'
+        console.log(greet)
+    }
+    sayGreet()
+    console.log(greet)
+</script>
+<!-- 2. 동일한 변수지정 사용가능한 점 -->
+<script>
+    var greet = "Goooood"
+    console.log(greet)
+    var greet = "Baaaaad"
+    console.log(greet)
+</script>
+<!-- 3. if 블락에서 새로운 변수를 선언했지만
+        var의 스코프는 function 단위이기 때문에 동일한 변수가 있는 경우에 
+        {} 바깥에 있는 변수값이 변경된다.        
+    
+-->
+<script>
+    var greet = "hi"
+    if(true){
+        var greet = "hi in block"
+    }
+
+    console.log(greet)
+</script>
+<body>
+</body>
+</html>
